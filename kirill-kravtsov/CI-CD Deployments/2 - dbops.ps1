@@ -38,7 +38,7 @@ Invoke-DBOQuery -Query "SELECT Id, ScriptName FROM SchemaVersions" | Out-GridVie
 cleanup
 Set-Location C:\Lab\dbops
 Install-DBOSqlScript -ScriptPath .\*
-Copy-Item 'C:\Lab\builds\7. Stored Procedures' C:\Lab\dbops -Recurse -PassThru | Select Name
+Copy-Item 'C:\Lab\builds\7. Stored Procedures' C:\Lab\dbops -Recurse
 Install-DBOSqlScript -ScriptPath .\*
 
 
@@ -87,7 +87,7 @@ Get-ChildItem .
 Invoke-DBOPackageCI -Name .\dbopsPackage.zip -ScriptPath C:\Lab\dbops\* -Version 0.5 | Select-Object Name, Builds, Version
 
 ## Augment the package with a new build using same source folder
-Copy-Item 'C:\Lab\builds\7. Stored Procedures' C:\Lab\dbops -Recurse -PassThru | Select Name
+Copy-Item 'C:\Lab\builds\7. Stored Procedures' C:\Lab\dbops -Recurse
 Invoke-DBOPackageCI -Name .\dbopsPackage.zip -ScriptPath C:\Lab\dbops\* | Select-Object Name, Builds, Version
 Get-DBOPackage .\dbopsPackage.zip | Select-Object -ExpandProperty Builds
 

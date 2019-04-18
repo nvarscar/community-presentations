@@ -1,3 +1,12 @@
+# defining variables and authentication
+$password = 'dbatools.IO'
+$sPassword = ConvertTo-SecureString $password -AsPlainText -Force
+$cred = New-Object pscredential 'sqladmin', $sPassword
+$PSDefaultParameterValues = @{
+    Disabled               = $false
+    "*-Dba*:SqlCredential" = $cred
+}
+
 # define export options
 $exportOptions = New-DbaDacOption -Type Dacpac -Action Export
 $exportOptions.IgnorePermissions = $true
@@ -12,6 +21,7 @@ $exportSplat = @{
 }
 $exportFile = Export-DbaDacPackage @exportSplat
 $exportFile
+Invoke-Item C:\Backups
 
 # define publish options
 $publishOptions = New-DbaDacOption -Type Dacpac -Action Publish
